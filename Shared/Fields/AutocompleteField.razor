@@ -1,0 +1,21 @@
+@typeparam T
+@inherits FieldBase<T, AutocompleteFieldModel<T>, AutocompleteValidator<T>, MudAutocomplete<T>>
+
+<MudAutocomplete T="T"
+                 Value="Model.Value"
+                 ValueChanged="async (T input)=> await Changed(input)"
+                 Label="@Label"
+                 SearchFunc="SearchFunc"
+                 Validation="_Validator.ValidateValue"
+                 ToStringFunc="ToStringFunc"
+                 ItemTemplate="ItemTemplate"
+                 ItemSelectedTemplate="ItemSelectedTemplate"
+                 Variant="Variant"
+                 Clearable="true"
+                 SelectOnClick="false"
+                 CoerceText="false"
+                 CoerceValue="false"
+                 Class="@Class"
+                 Style="@Style"
+                 @ref="Field">
+</MudAutocomplete>

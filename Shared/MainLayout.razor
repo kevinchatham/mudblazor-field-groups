@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<PageTitle>Field Groups</PageTitle>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudText Typo="Typo.h5"
+                 Inline="true">Field Groups</MudText>
+    </MudAppBar>
+    <MudMainContent Class="pl-10 pr-10 mt-16 pt-4">
+        @Body
+    </MudMainContent>
+</MudLayout>

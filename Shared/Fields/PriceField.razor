@@ -1,0 +1,16 @@
+@inherits FieldBase<decimal,PriceFieldModel, PriceValidator, MudNumericField<decimal>>
+
+<MudNumericField Label="@Label"
+                 Value="Model.Value"
+                 ValueChanged="async (decimal input)=> await Changed(input)"
+                 For="@(() => Model.Value)"
+                 Validation="_Validator.ValidateValue"
+                 Variant="Variant"
+                 Adornment="Adornment.Start"
+                 AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                 HideSpinButtons="true"
+                 Disabled="Disabled"
+                 Immediate="Immediate"
+                 Class="@Class"
+                 Style="@Style"
+                 @ref="Field" />

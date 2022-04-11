@@ -1,0 +1,66 @@
+@inherits FieldBase<List<Rate>, RateFieldModel, BaseValidator<List<Rate>>, MudBaseInput<List<Rate>>>
+
+@foreach (var rate in Model.Value)
+{
+        var index = Model.Value.IndexOf(rate);
+        <div class="mb-2">
+                <div class="d-flex justify-space-between align-center">
+                        <MudText Class="ml-4"
+                         Inline="true"
+                         Typo="Typo.h6">
+                                @Model.Value[index].Interval Rate
+                        </MudText>
+                        @if (Model.Value.Count > 1)
+                        {
+                                <MudIconButton Class="mr-2"
+                               Icon="@Icons.Material.Filled.Close"
+                               OnClick="()=>RemoveRate(index)" />
+                        }
+                </div>
+                <MudSelect Label="Interval"
+                   Value="rate.Interval"
+                   ValueChanged="(Interval input) => IntervalChanged(input,index)"
+                   For="@(() => rate.Interval)"
+                   T="Interval"
+                   Strict="false"
+                   Variant="Variant"
+                   AnchorOrigin="Origin.BottomCenter"
+                   Validation="_Validator.ValidateValue"
+                   Disabled="Disabled"
+                   Immediate="Immediate"
+                   Class="@Class"
+                   Style="@Style">
+                        @foreach (var interval in AvailableIntervals)
+                        {
+                                <MudSelectItem T="Interval"
+                               Value="interval" />
+                        }
+                </MudSelect>
+                <MudNumericField Label="Price"
+                         Value="rate.Price"
+                         ValueChanged="async (decimal input)=> await PriceChanged(input,index)"
+                         For="@(() => rate.Price)"
+                         Validation="_Validator.ValidateValue"
+                         Variant="Variant"
+                         Adornment="Adornment.Start"
+                         AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                         HideSpinButtons="true"
+                         Disabled="Disabled"
+                         Min="0"
+                         Immediate="Immediate"
+                         Class="@Class"
+                         Style="@Style" />
+        </div>
+}
+@if (Model.Value.Count != AllIntervals.Count)
+{
+        <div class="d-flex justify-center">
+                <MudTooltip Text="Add new rate">
+                        <MudFab OnClick="AddRate"
+                        Color="Color.Primary"
+                        Icon="@Icons.Material.Filled.Add"
+                        Size="Size.Small"
+                        IconSize="Size.Small"></MudFab>
+                </MudTooltip>
+        </div>
+}

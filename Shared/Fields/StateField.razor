@@ -1,0 +1,23 @@
+@inherits FieldBase<string, StateFieldModel, NotEmptyValidator, MudSelect<string>>
+
+<MudSelect Label="@Label"
+           Value=Model.Value
+           ValueChanged="(string input) => Changed(input)"
+           For="@(() => Model.Value)"
+           T="string"
+           Strict="true"
+           Variant="Variant"
+           AnchorOrigin="Origin.BottomCenter"
+           Validation="_Validator.ValidateValue"
+           Disabled="Disabled"
+           Immediate="Immediate"
+           Class="@Class"
+           Style="@Style"
+           @ref="Field">
+
+    @foreach (var state in State.AllStates.OrderBy(x => x.Abbreviation))
+    {
+        <MudSelectItem T="string"
+                   Value="state.Abbreviation" />
+    }
+</MudSelect>

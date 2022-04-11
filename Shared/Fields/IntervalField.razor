@@ -1,0 +1,25 @@
+@inherits FieldBase<Interval, IntervalFieldModel, BaseValidator<Interval>, MudSelect<Interval>>
+
+<MudSelect Label="@Label"
+           Value="Model.Value"
+           ValueChanged="(Interval input) => Changed(input)"
+           For="@(() => Model.Value)"
+           T="Interval"
+           Strict="true"
+           Variant="Variant"
+           AnchorOrigin="Origin.BottomCenter"
+           Validation="_Validator.ValidateValue"
+           Disabled="Disabled"
+           Immediate="Immediate"
+           Class="@Class"
+           Style="@Style"
+           @ref="Field">
+    <MudSelectItem T="Interval"
+                   Value="Interval.Daily" />
+    <MudSelectItem T="Interval"
+                   Value="Interval.Weekly" />
+    <MudSelectItem T="Interval"
+                   Value="Interval.Monthly" />
+    <MudSelectItem T="Interval"
+                   Value="Interval.Yearly" />
+</MudSelect>
