@@ -5,6 +5,37 @@
              sm="8"
              md="5"
              lg="3">
-
+        <EmailField @bind-Model="Form.Email" />
+        <NameField @bind-Model="Form.Name"
+                   Class="mt-4 mb-4" />
+        <RateField @bind-Model="Form.Rates"
+                   Class="mt-4" />
+        <MudButton Disabled="Form.SubmitDisabled"
+                   OnClick="Submit"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary">
+            Submit
+        </MudButton>
+    </MudItem>
+    <MudItem xs="12">
+        <MudText>
+            @Form.Email.Value
+        </MudText>
     </MudItem>
 </MudGrid>
+
+@code {
+    public FormGroup Form { get; set; } = new();
+
+    public async Task Submit()
+    {
+        // do something
+    }
+
+    public class FormGroup : FieldGroup
+    {
+        public EmailFieldModel Email { get; set; } = new();
+        public NameFieldModel Name { get; set; } = new();
+        public RateFieldModel Rates { get; set; } = new() { Value = new() { new() } };
+    }
+}
