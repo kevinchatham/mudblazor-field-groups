@@ -1,4 +1,4 @@
-@inherits FieldBase<string, RoleFieldModel, NotEmptyValidator, MudSelect<string>>
+@inherits FieldBase<string, RoleFieldModel, MudSelect<string>>
 
 <MudSelect Label="@Label"
            Value=Model.Value
@@ -8,14 +8,13 @@
            Strict="true"
            Variant="Variant"
            AnchorOrigin="Origin.BottomCenter"
-           Validation="_Validator.ValidateValue"
            Disabled="Disabled"
            Immediate="Immediate"
            Class="@Class"
            Style="@Style"
            @ref="Field">
-  <MudSelectItem T="string"
-                 Value="@Roles.User" />
-  <MudSelectItem T="string"
-                 Value="@Roles.Admin" />
+    <MudSelectItem T="string"
+                   Value="@Roles.User" />
+    <MudSelectItem T="string"
+                   Value="@Roles.Admin" />
 </MudSelect>

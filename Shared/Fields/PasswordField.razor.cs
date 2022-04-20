@@ -6,7 +6,7 @@ using MudBlazor;
 namespace FieldGroups.Shared.Fields;
 
 public partial class PasswordField :
-    FieldBase<string, PasswordFieldModel, PasswordValidator, MudTextField<string>>
+    FieldBase<string, PasswordFieldModel, MudTextField<string>>
 {
     [Parameter]
     public bool Confirm { get; set; }
@@ -14,17 +14,22 @@ public partial class PasswordField :
     [Parameter]
     public bool ConfirmDisabled { get; set; }
 
+    [Parameter]
     public override string Label { get; set; } = "Password";
     InputType InputType = InputType.Password;
     string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
     bool PasswordVisible { get; set; }
 
+    [Parameter]
     public string ConfirmLabel { get; set; } = "Confirm Password";
     InputType ConfirmInputType = InputType.Password;
     string ConfirmPasswordInputIcon = Icons.Material.Filled.VisibilityOff;
     bool ConfirmPasswordVisible { get; set; }
     public MudTextField<string> ConfirmField { get; set; }
-    readonly ConfirmPasswordValidator ConfirmValidator = new();
+
+    [Inject]
+    PasswordValidator PasswordValidator { get; set; }
+    readonly MatchesValidator MatchesValidator = new();
 
     void TogglePasswordVisibility()
     {
@@ -58,37 +63,21 @@ public partial class PasswordField :
         }
     }
 
-    protected override async Task Changed(string input)
-    {
-        await base.Changed(input);
-
-        if (Confirm)
-        {
-            var validationResult = await ConfirmValidator.ValidateAsync((Model.Value, Model.ConfirmValue));
-            Model.IsValid = Validate ? validationResult.IsValid : true;
-        }
-
-        await ModelChanged.InvokeAsync(Model);
-    }
-
     async Task ConfirmChanged(string input)
     {
         // ? For whatever reason things like 'ConfirmField.ResetValidation()'
         // ? just do not work at all. Setting new func is the only work around ?
 
-        ConfirmField.Validation = new BypassValidator().ValidateValue;
-        await ConfirmField.Validate();
-        StateHasChanged();
-
-        var validationResult = await ConfirmValidator.ValidateAsync((Model.Value, input));
+        var validationResult = await MatchesValidator.Validate((Model.Value, input));
+        var count = validationResult.Count();
 
         Model.ConfirmValue = input;
-        Model.IsValid = Validate ? validationResult.IsValid : true;
+        Model.IsValid = Validate ? count == 0 : true;
         Model.IsTouched = true;
 
         if (!Model.IsValid)
         {
-            var message = validationResult.Errors.First().ErrorMessage;
+            var message = validationResult.First();
             ConfirmField.Validation = new Func<string, string>(x => message);
             await ConfirmField.Validate();
             StateHasChanged();

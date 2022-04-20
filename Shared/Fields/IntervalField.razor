@@ -1,4 +1,4 @@
-@inherits FieldBase<Interval, IntervalFieldModel, BaseValidator<Interval>, MudSelect<Interval>>
+@inherits FieldBase<Interval, IntervalFieldModel, MudSelect<Interval>>
 
 <MudSelect Label="@Label"
            Value="Model.Value"
@@ -8,7 +8,6 @@
            Strict="true"
            Variant="Variant"
            AnchorOrigin="Origin.BottomCenter"
-           Validation="_Validator.ValidateValue"
            Disabled="Disabled"
            Immediate="Immediate"
            Class="@Class"

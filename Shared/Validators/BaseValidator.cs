@@ -1,18 +1,17 @@
-using FluentValidation;
-
 namespace FieldGroups.Shared.Validators;
 
-public class BaseValidator<T> : AbstractValidator<T>
+public abstract class BaseValidator<T>
 {
-    public Func<T, Task<string>> ValidateValue => async (model) =>
+    public readonly BaseMessages Messages = new();
+    public abstract Func<T, Task<IEnumerable<string>>> Validate { get; }
+
+    public class BaseMessages
     {
-        if (model is null) return null;
-
-        var result = await ValidateAsync(model);
-
-        if (result.Errors.Count > 0)
-            return result.Errors.First().ErrorMessage;
-
-        return null; // needed by MudInputBase otherwise error is literally ''
-    };
+        public readonly string Required = "This is required.";
+        public string MaxLength(int l) => $"Cannot be greater than {l} characters.";
+        public string MinLength(int l) => $"Cannot be less than {l} characters.";
+        public string Min(int l) => $"Must be above {l}.";
+        public string Max(int l) => $"Must be below {l}.";
+        public string Length(int l) => $"Must contain {l} characters.";
+    }
 }

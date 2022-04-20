@@ -1,10 +1,10 @@
-@inherits FieldBase<decimal,DiscountFieldModel, DiscountValidator, MudNumericField<decimal>>
+@inherits FieldBase<decimal,DiscountFieldModel, MudNumericField<decimal>>
 
 <MudNumericField Label="@Label"
                  Value="Model.Value"
                  ValueChanged="async (decimal input)=> await Changed(input)"
                  For="@(() => Model.Value)"
-                 Validation="_Validator.ValidateValue"
+                 Validation="Validator.Validate"
                  Variant="Variant"
                  Min="0"
                  Max="Max"

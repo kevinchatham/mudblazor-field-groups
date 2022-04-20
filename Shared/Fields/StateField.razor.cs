@@ -1,12 +1,13 @@
 using FieldGroups.Shared.Fields.Base;
-using FieldGroups.Shared.Validators;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class StateField :
-    FieldBase<string, StateFieldModel, NotEmptyValidator, MudSelect<string>>
+    FieldBase<string, StateFieldModel, MudSelect<string>>
 {
+    [Parameter]
     public override string Label { get; set; } = "State";
 }
 

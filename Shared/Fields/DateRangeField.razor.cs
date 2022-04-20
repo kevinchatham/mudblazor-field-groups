@@ -1,12 +1,11 @@
 using FieldGroups.Shared.Fields.Base;
-using FieldGroups.Shared.Validators;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class DateRangeField :
-    FieldBase<DateRange, DateRangeFieldModel, BaseValidator<DateRange>, MudFormComponent<DateRange, string>>
+    FieldBase<DateRange, DateRangeFieldModel, MudFormComponent<DateRange, string>>
 {
     [Parameter]
     public Func<DateTime, bool> IsDateDisabled { get; set; } = new Func<DateTime, bool>(dt => false);
@@ -17,6 +16,7 @@ public partial class DateRangeField :
     [Parameter]
     public DateTime? MaxDate { get; set; }
 
+    [Parameter]
     public override string Label { get; set; } = "Date Range";
 
     MudDateRangePicker Picker;

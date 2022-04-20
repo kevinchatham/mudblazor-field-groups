@@ -1,13 +1,18 @@
 using FieldGroups.Data.Models;
 using FieldGroups.Shared.Fields.Base;
 using FieldGroups.Shared.Validators;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class RateField :
-    FieldBase<List<Rate>, RateFieldModel, BaseValidator<List<Rate>>, MudBaseInput<List<Rate>>>
+    FieldBase<List<Rate>, RateFieldModel, MudBaseInput<List<Rate>>>
 {
+    [Inject]
+    PriceValidator PriceValidator { get; set; }
+
+    [Parameter]
     public override string Label { get; set; } = "Interval";
 
     static readonly List<Interval> AllIntervals = new()

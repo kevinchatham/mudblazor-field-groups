@@ -1,4 +1,4 @@
-@inherits FieldBase<string, StateFieldModel, NotEmptyValidator, MudSelect<string>>
+@inherits FieldBase<string, StateFieldModel, MudSelect<string>>
 
 <MudSelect Label="@Label"
            Value=Model.Value
@@ -8,7 +8,6 @@
            Strict="true"
            Variant="Variant"
            AnchorOrigin="Origin.BottomCenter"
-           Validation="_Validator.ValidateValue"
            Disabled="Disabled"
            Immediate="Immediate"
            Class="@Class"

@@ -1,4 +1,4 @@
-@inherits FieldBase<List<Rate>, RateFieldModel, BaseValidator<List<Rate>>, MudBaseInput<List<Rate>>>
+@inherits FieldBase<List<Rate>, RateFieldModel, MudBaseInput<List<Rate>>>
 
 @foreach (var rate in Model.Value)
 {
@@ -25,7 +25,6 @@
                    Strict="false"
                    Variant="Variant"
                    AnchorOrigin="Origin.BottomCenter"
-                   Validation="_Validator.ValidateValue"
                    Disabled="Disabled"
                    Immediate="Immediate"
                    Class="@Class"
@@ -40,7 +39,7 @@
                          Value="rate.Price"
                          ValueChanged="async (decimal input)=> await PriceChanged(input,index)"
                          For="@(() => rate.Price)"
-                         Validation="_Validator.ValidateValue"
+                         Validation="PriceValidator.Validate"
                          Variant="Variant"
                          Adornment="Adornment.Start"
                          AdornmentIcon="@Icons.Material.Filled.AttachMoney"

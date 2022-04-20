@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject ISnackbar Snackbar
 
 <MudGrid Justify="Justify.Center">
     <MudItem xs="12"
@@ -7,9 +8,13 @@
              lg="3">
         <EmailField @bind-Model="Form.Email" />
         <NameField @bind-Model="Form.Name"
+                   Immediate="true"
                    Class="mt-4 mb-4" />
         <RateField @bind-Model="Form.Rates"
                    Class="mt-4" />
+    </MudItem>
+    <MudItem xs="12"
+             Class="d-flex justify-center">
         <MudButton Disabled="Form.SubmitDisabled"
                    OnClick="Submit"
                    Variant="Variant.Filled"
@@ -19,20 +24,37 @@
     </MudItem>
     <MudItem xs="12">
         <MudText>
-            @Form.Email.Value
+            Form Email: @Form.Email.Value
         </MudText>
+        <MudText>
+            Form Name: @Form.Name.Value
+        </MudText>
+        @foreach (var rate in Form.Rates.Value)
+        {
+            var text = $"{rate.Interval} Rate: {rate.Price.ToString("C")}";
+            <MudText>
+                @text
+            </MudText>
+        }
     </MudItem>
 </MudGrid>
 
 @code {
-    public FormGroup Form { get; set; } = new();
+    FormGroup Form { get; set; } = new();
 
-    public async Task Submit()
+    protected override void OnInitialized()
     {
-        // do something
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomRight;
+        base.OnInitialized();
     }
 
-    public class FormGroup : FieldGroup
+    void Submit()
+    {
+        Snackbar.Clear();
+        Snackbar.Add("Form submitted", Severity.Success);
+    }
+
+    sealed class FormGroup : FieldGroup
     {
         public EmailFieldModel Email { get; set; } = new();
         public NameFieldModel Name { get; set; } = new();

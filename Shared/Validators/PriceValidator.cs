@@ -1,16 +1,14 @@
-using FluentValidation;
-
 namespace FieldGroups.Shared.Validators;
 
-public class PriceValidator : BaseValidator<decimal>
+public sealed class PriceValidator : BaseValidator<decimal>
 {
-    public PriceValidator()
+    public sealed override Func<decimal, Task<IEnumerable<string>>> Validate => (decimal d) =>
     {
-        RuleFor(x => x)
-        .Cascade(CascadeMode.Stop)
-        .NotEmpty()
-        .WithMessage("This is required.")
-        .GreaterThan(0)
-        .WithMessage("Price cannot be below zero.");
-    }
+        var errors = new List<string>();
+
+        if (d <= 0)
+            errors.Add(base.Messages.Min(0));
+
+        return Task.FromResult(errors.AsEnumerable());
+    };
 }

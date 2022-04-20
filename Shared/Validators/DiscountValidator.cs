@@ -1,14 +1,14 @@
-using FluentValidation;
-
 namespace FieldGroups.Shared.Validators;
 
-public class DiscountValidator : BaseValidator<decimal>
+public sealed class DiscountValidator : BaseValidator<decimal>
 {
-    public DiscountValidator()
+    public sealed override Func<decimal, Task<IEnumerable<string>>> Validate => (decimal d) =>
     {
-        RuleFor(x => x)
-        .Cascade(CascadeMode.Stop)
-        .GreaterThanOrEqualTo(0)
-        .WithMessage("Discount cannot be below zero.");
-    }
+        var errors = new List<string>();
+
+        if (d < 0)
+            errors.Add(base.Messages.Min(0));
+
+        return Task.FromResult(errors.AsEnumerable());
+    };
 }

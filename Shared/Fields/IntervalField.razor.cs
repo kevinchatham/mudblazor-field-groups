@@ -1,13 +1,14 @@
 using FieldGroups.Data.Models;
 using FieldGroups.Shared.Fields.Base;
-using FieldGroups.Shared.Validators;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class IntervalField :
-    FieldBase<Interval, IntervalFieldModel, BaseValidator<Interval>, MudSelect<Interval>>
+    FieldBase<Interval, IntervalFieldModel, MudSelect<Interval>>
 {
+    [Parameter]
     public override string Label { get; set; } = "Interval";
 }
 

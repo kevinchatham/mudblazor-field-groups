@@ -1,12 +1,11 @@
 using FieldGroups.Shared.Fields.Base;
-using FieldGroups.Shared.Validators;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class AutocompleteField<T> :
-    FieldBase<T, AutocompleteFieldModel<T>, AutocompleteValidator<T>, MudAutocomplete<T>>
+    FieldBase<T, AutocompleteFieldModel<T>, MudAutocomplete<T>>
 {
     [Parameter]
     public RenderFragment<T> ItemTemplate { get; set; }
@@ -26,6 +25,7 @@ public partial class AutocompleteField<T> :
     [Parameter]
     public bool CoerceValue { get; set; }
 
+    [Parameter]
     public override string Label { get; set; }
 }
 

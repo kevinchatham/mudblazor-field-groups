@@ -1,16 +1,19 @@
-using FluentValidation;
-
 namespace FieldGroups.Shared.Validators;
 
-public class PhoneValidator : BaseValidator<string>
+public sealed class PhoneValidator : BaseValidator<string>
 {
-    public PhoneValidator()
+    public sealed override Func<string, Task<IEnumerable<string>>> Validate => (string s) =>
     {
-        RuleFor(x => x)
-            .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage("This is required.")
-            .Length(10, 10)
-            .WithMessage("Must be 10 digits.");
-    }
+        var errors = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(s))
+            errors.Add(base.Messages.Required);
+
+        var limit = 10;
+
+        if (s?.Length > limit)
+            errors.Add(base.Messages.Length(limit));
+
+        return Task.FromResult(errors.AsEnumerable());
+    };
 }

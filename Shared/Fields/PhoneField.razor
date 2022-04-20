@@ -1,10 +1,10 @@
-@inherits FieldBase<string, PhoneFieldModel, PhoneValidator, MudTextField<string>>
+@inherits FieldBase<string, PhoneFieldModel, MudTextField<string>>
 
 <MudTextField Label="@Label"
               Value="Model.Value"
               ValueChanged="async (string input)=> await Changed(input.Trim())"
               For="@(() => Model.Value)"
-              Validation="_Validator.ValidateValue"
+              Validation="Validator.Validate"
               Variant="Variant"
               Disabled="Disabled"
               Immediate="Immediate"

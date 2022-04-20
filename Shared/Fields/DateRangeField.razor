@@ -1,11 +1,10 @@
-@inherits FieldBase<DateRange, DateRangeFieldModel, BaseValidator<DateRange>, MudFormComponent<DateRange, string>>
+@inherits FieldBase<DateRange, DateRangeFieldModel, MudFormComponent<DateRange, string>>
 
 <MudDateRangePicker Label="@Label"
                     DateRange="Model.Value"
                     DateRangeChanged="async (DateRange input)=> await Changed(input)"
                     Required="true"
                     RequiredError="This is required."
-                    Validation="_Validator.ValidateValue"
                     Variant="Variant"
                     Disabled="Disabled"
                     IsDateDisabledFunc="IsDateDisabled"

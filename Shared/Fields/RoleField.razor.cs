@@ -1,12 +1,13 @@
 using FieldGroups.Shared.Fields.Base;
-using FieldGroups.Shared.Validators;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields;
 
 public partial class RoleField :
-    FieldBase<string, RoleFieldModel, NotEmptyValidator, MudSelect<string>>
+    FieldBase<string, RoleFieldModel, MudSelect<string>>
 {
+    [Parameter]
     public override string Label { get; set; } = "Role";
 }
 

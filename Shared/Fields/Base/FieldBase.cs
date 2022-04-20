@@ -1,12 +1,10 @@
-using FieldGroups.Shared.Validators;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FieldGroups.Shared.Fields.Base;
 
-public abstract class FieldBase<T, TModel, TValidator, TInput> : ComponentBase
+public abstract class FieldBase<T, TModel, TInput> : ComponentBase
     where TModel : FieldModelBase<T>
-    where TValidator : BaseValidator<T>
     where TInput : MudFormComponent<T, string>
 {
     [Parameter]
@@ -36,20 +34,7 @@ public abstract class FieldBase<T, TModel, TValidator, TInput> : ComponentBase
     [Parameter]
     public abstract string Label { get; set; }
 
-    [Inject]
-    protected TValidator Validator { get; set; }
-
-    protected BaseValidator<T> _Validator { get; set; } = new();
-
     protected TInput Field { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (Validate)
-            _Validator = Validator;
-
-        await base.OnInitializedAsync();
-    }
 
     protected virtual async Task Changed(T input)
     {
